@@ -1,0 +1,264 @@
+/* ESTILO GLOBAL */
+
+* {
+  font-family: "Montserrat", sans-serif;
+}
+
+.q-page-container {
+  background-color: #f9f9f9;
+  font-size: 14px;
+  padding-left: 190px !important;
+}
+
+h6 {
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #616161;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+label {
+  color: #616161;
+}
+
+.q-btn {
+  border-radius: 25px;
+  color: #fff;
+  background-color: #009949;
+  transition: 0.3s all ease-in-out;
+}
+
+.q-btn:hover {
+  background-color: #02ed88;
+}
+
+/* MENU LATERAL */
+.q-drawer {
+  background-color: #ecf0f3;
+}
+
+/*
+Atenção - 200px - estilo inline removido do q-drawer dentro do componente MainLayout e adicionado aqui, devido a um warning no console do navegador.
+*/
+aside {
+  width: 200px !important;
+}
+
+/*  CSS GERAL CAMPO DE FORMULÁRIO */
+.q-col-gutter-y-xl > *,
+.q-col-gutter-xl > * {
+  padding-top: 0px;
+}
+
+.q-input,
+.q-textarea {
+  background-color: #ededed;
+  border-radius: 15px;
+  padding-left: 5px;
+}
+
+.q-field--standard .q-field__control:before {
+  border-bottom: none;
+}
+
+.q-field--with-bottom {
+  padding-bottom: 5px;
+}
+
+.q-field__bottom--animated {
+  bottom: 25px;
+}
+
+.filter {
+  background-color: #ededed;
+  border-radius: 15px;
+  padding-left: 10px;
+}
+
+/* Background-color do input do q-select */
+:root {
+  --q-dark: #d9d9d9;
+}
+
+.q-list--dark,
+.q-item--dark {
+  color: #333;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.q-chip--dense {
+  background-color: #fff;
+  padding: 20px;
+}
+
+/*  CSS LOGO */
+.logotipo {
+  color: #616161;
+  font-weight: bold;
+  font-size: 28px;
+}
+
+/* Estilos para as páginas de competências e elementos */
+
+.spacing-top {
+  height: 100px; /* ou a altura desejada */
+}
+
+.q-list.custom-q-list .q-item.custom-q-item {
+  color: #616161;
+  font-weight: bold;
+  border-radius: 15px;
+  background-color: #f7f7f7;
+  padding-inline: 50px;
+  text-align: center;
+  transition: 0.3s all ease-in-out;
+}
+
+.q-list.custom-q-list .q-item.custom-q-item:hover {
+  color: #f7f7f7;
+  background-color: #02ed88;
+}
+
+.container-competencias,
+.container-elementos {
+  min-height: 300px;
+  height: auto;
+  width: 100%;
+  background-color: #ededed;
+  border-radius: 15px;
+  padding-bottom: 15px;
+}
+
+.q-page {
+  background-color: #f9f9f9;
+}
+
+.container-competencias-lista {
+  margin-left: 8px;
+}
+
+.btn-defalt {
+  height: 40px;
+  width: 110px;
+}
+
+.custom-padding {
+  padding-left: 20px; /* Ajuste o valor conforme necessário */
+  padding-right: 20px; /* Ajuste o valor conforme necessário */
+}
+
+.transparent-card {
+  background-color: rgba(255, 255, 255, 0); /* Totalmente transparente */
+  border: none; /* Remove a borda */
+  box-shadow: none; /* Remove qualquer sombra */
+}
+
+.close-icon {
+  cursor: pointer;
+  color: #333;
+  font-size: 24px; /* Ajuste o tamanho do ícone conforme necessário */
+}
+
+#custom-text-color,
+.custom-dropdown-icon-color .q-icon {
+  color: #fff;
+}
+
+.scrollable-select {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* CSS da Página de Busca */
+.btn-search .q-radio__inner {
+  font-size: 24px;
+}
+
+.btn-search .q-radio, .btn-visited {
+  color: #616161;
+  font-weight: bold;
+  border-radius: 25px;
+  background-color: #f7f7f7;
+  transition: 0.3s all ease-in-out;
+  padding: 10px;
+}
+
+.btn-search .q-radio:hover {
+  color: #f7f7f7;
+  background-color: #02ed88;
+}
+
+.btn-search .q-radio--dense .q-radio__label {
+  padding-left: 5px;
+}
+
+.btn-pagination .bg-black {
+  background-color: #656565 !important;
+}
+
+.btn-pagination .text-black {
+  color: #fff !important;
+}
+
+@media screen and (max-width: 1022px) {
+  /*
+    Atenção - 200px - estilo inline removido do q-drawer dentro do componente MainLayout e adicionado aqui, devido a um warning no console do navegador.
+  */
+  .q-page-container {
+    padding-left: 0px !important;
+  }
+
+  .container-competencias-lista {
+    width: 80%;
+    display: block;
+    margin: 10px auto;
+  }
+
+  .q-btn {
+    width: 100%;
+  }
+}
+
+/*  REGRAS CSS */
+
+/*
+
+Especificações técnicas para código front-end:
+
+(1) Gride de 12 colunas
+
+(2) Cor de Fundo: #F9F9F9
+
+(3) Menu Lateral: ocupa 2 colunas
+
+(4) Cor de fundo: #ECF0F3
+
+(5) Nome da empresa: CORE-O em text-transform: uppercase, font-family: montserrat, “CORE” em #616161”
+
+(6) Texto Menu: font-family: montserrat, font-weight: bold, font-size: 20px, font-transform: uppecase, text-align: right, color: #009949. Para o usuário saber onde no Menu está, a cor de fundo do texto "Profissionais" muda para #CDCED0
+
+Formulário:
+
+(7) Após o Menu, intervalo de 1 coluna. Ocupa 3 colunas. Intervalo de 1 coluna entre os campos
+
+(8) Espaçamento de 25 pixels entre um campo e outro de cima para baixo
+
+(9) Título da sessão “cadastrar Informações”: font-family: montserrat, font-weight: bold, font-size: 20px, text-transform: uppercase, text-align: right, #616161
+
+(10) Títulos dos campos: font-family: montserrat, font-weight: regular, font-size: 18px, #616161.
+
+(11) Os campos fechados são em formato de lista
+
+(12) input dos formulários em pílula, border-radius: 25px
+
+*Atenção: bold é apenas para texto de Menu, título e botão Texto comum é em regular
+
+*/
