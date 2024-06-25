@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     validateEmail (email) {
-      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]{1,50}$/
       return re.test(email)
     },
     async register () {

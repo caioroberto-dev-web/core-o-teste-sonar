@@ -335,9 +335,6 @@ q-separator {
 
 .btn-group-add-modal {
   position: relative;
-}
-
-.btn-group-add-modal {
   top: 100px;
 }
 </style>

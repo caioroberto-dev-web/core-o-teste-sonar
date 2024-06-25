@@ -13,7 +13,7 @@
       <q-list class="drawer-content">
         <q-item-label header>
           <img src="icons/logo.png" alt="logo" class="logo"/>
-          <p align="center" class="logotipo">CORE-O</p>
+          <p class="logotipo text-center">CORE-O</p>
         </q-item-label>
 
         <EssentialLink

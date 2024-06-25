@@ -24,12 +24,7 @@ export function validationHelper () {
     return ''
   }
 
-  const hasValidationErrors = (field) => {
-    if (getValidationErrorMessages(field).length !== 0) {
-      return true
-    }
-    return false
-  }
+  const hasValidationErrors = (field) => getValidationErrorMessages(field).length !== 0
 
   const setValidationErrors = (payload) => {
     errors.value = payload
