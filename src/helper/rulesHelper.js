@@ -2,7 +2,7 @@ const ruleRequired = (val) => { return !!val }
 const ruleMinLength = (val, min) => { return val.length >= min }
 const ruleMaxLength = (val, max) => { return val.length <= max }
 // eslint-disable-next-line
-const ruleEmail = (val) => /^[\w.+_-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(val);
+const ruleEmail = (val) => /^[\w.+_-]+@[\w.-]+[a-zA-Z]{2,}$/.test(val);
 
 export {
   ruleRequired,
