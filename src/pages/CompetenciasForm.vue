@@ -8,7 +8,8 @@
           <p>Competências</p>
         </div>
         <div class="col-auto">
-          <q-btn class="btn-defalt" label="ADICIONAR" flat @click="addCompetenciaModal = true" style="font-weight: bold;" />
+          <q-btn class="btn-defalt" label="ADICIONAR" flat @click="addCompetenciaModal = true"
+            style="font-weight: bold;" />
         </div>
       </div>
       <div class="row q-mt-md">
@@ -25,7 +26,7 @@
           <q-item clickable class="col-auto custom-q-item" v-for="profs in prof" :key="profs.id"
             @click="(dialogEditCompetence = true), getCompetenceDetails(profs.id)">
             <q-item-section>
-              {{ profs.competenceType.name }}
+              {{ profs.name }}
             </q-item-section>
           </q-item>
         </q-list>
@@ -43,11 +44,12 @@
               <p class="row justify-center items-center">Adicionar competência</p>
             </q-card-section>
 
-            <q-separator class="q-mb-xl"/>
+            <q-separator class="q-mb-xl" />
 
-            <label for="competenceType" class="subTitleModalAddElement text-bold">Selecione sua(s) competência(s):</label>
-            <q-select class="scrollable-select" for="competenceType" v-model="form" use-input multiple use-chips :options="optCompetenceTypes"
-              option-label="name" option-value="id">
+            <label for="competenceType" class="subTitleModalAddElement text-bold">Selecione sua(s)
+              competência(s):</label>
+            <q-select class="scrollable-select" for="competenceType" v-model="form" use-input multiple use-chips
+              :options="optCompetenceTypes" option-label="name" option-value="id">
               <template v-slot:no-option>
                 <q-item>
                   <q-item-section class="text-grey">
@@ -67,8 +69,9 @@
 
       </q-card>
     </q-dialog>
+    <!--Modal de visualizar os detalhes da competência-->
     <q-dialog v-model="dialogEditCompetence">
-      <q-card class="column q-pa-sm modalStyle" style="width: 600px; height: 600px;">
+      <q-card class="column q-pa-sm modalStyle scroll" style="width: 600px; height: 600px;">
         <q-form class="form-container q-pa-sm" @submit="handleEditCompetence(formEdit.id)">
           <div>
             <q-card-section>
@@ -86,12 +89,19 @@
                 :rules="[(val) => (val && val.length > 9) || 'Descrição precisa ter no mínimo 10 caracteres.']"
                 :error-message="getValidationErrors('description')" :error="hasValidationErrors('description')" />
               <label for="level" class="subTitleModalAddCompetence">Nível</label>
-              <q-select class="filter" for="level" v-model="formEdit.levelId" :options="optLevels" option-value="name"
-                option-label="name" />
+              <q-select class="filter q-cardInputModalInpt" for="level" v-model="formEdit.levelId" :options="optLevels"
+                option-value="name" option-label="name" />
+              <p class="text-center q-mt-xl">Aptidões</p>
+              <label for="filtroElementsType" class="subTitleModalAddCompetence">Filtrar por Aptidões</label>
+              <q-select class="filter q-cardInputModalInpt" for="filtroElementsType" v-model="filterOptType" :options="optTypes" use-input option-label="name" option-value="id"></q-select>
+              <label for="" class="subTitleModalAddCompetence">Seleção de Aptidões</label>
+              <q-select class="filter scrollable-select" for="elementType" v-model="formVinculo" use-input multiple use-chips
+              :options="filteredOptElementTypes" option-label="name" option-value="id"></q-select>
             </q-card-section>
           </div>
-          <div class="row reverse col-12 q-gutter-sm">
+          <div class="row reverse col-12 q-gutter-sm q-mb-xs q-pb-sm">
             <q-btn color="positive" type="submit">Salvar</q-btn>
+            <q-btn color="secondary" v-close-popup>Cancelar</q-btn>
             <q-btn color="negative" @click="handleDeleteCompetence(formEdit.id)" v-close-popup>Excluir</q-btn>
           </div>
         </q-form>
@@ -101,13 +111,16 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import { getAllCompetenceType } from 'src/services/competenceTypeService'
 import { getAllCompetence, postCompetence, getCompetenceById, DeleteCompetenceById, putCompetence } from 'src/services/competenceServices'
 import { getAllLevels } from 'src/services/levelService'
 import { validationHelper } from 'src/helper/validationHelper'
 import AlertMessage from '../components/AlertMessage.vue'
+//
+import { getProfessionalElements, getTypes } from 'src/services/elementService'
+import { api } from 'src/boot/axios'
 
 const addCompetenciaModal = ref(false)
 const dialogEditCompetence = ref(false)
@@ -123,11 +136,18 @@ const formEdit = ref({
   description: '',
   levelId: ''
 })
-
+//
+const profElsRegistred = ref([])
+const optTypes = ref([])
+const filterOptType = ref({ id: 'todos', name: 'Todos' })
+const formVinculo = ref([])
 onMounted(() => {
   getCompetences()
   getCompetenceType()
   getLevels()
+  //
+  getProfessionalElementsFromApi()
+  getTypesFromApi()
 })
 
 // Criar competencias
@@ -166,6 +186,7 @@ const getCompetenceType = async () => {
 
 // Busca as competencias do usuário
 const getCompetences = async () => {
+  elementsV()
   const res = await getAllCompetence()
   prof.value = res
 }
@@ -225,6 +246,42 @@ const handleDeleteCompetence = async (id) => {
     getCompetences()
   }).onCancel(() => { })
 }
+
+// Busca as Aptidões pelo ID
+const getProfessionalElementsFromApi = async () => {
+  await getProfessionalElements().then(resp => {
+    profElsRegistred.value = resp
+  }).catch(() => {
+    profElsRegistred.value = []
+  })
+}
+
+// Filtra aptidões
+const getTypesFromApi = async () => {
+  await getTypes().then(resp => {
+    optTypes.value = resp
+    optTypes.value.push({ id: 'todos', name: 'Todos' })
+  }).catch(() => {
+    optTypes.value = []
+  })
+}
+
+const filteredOptElementTypes = computed(() => {
+  if (!filterOptType.value || filterOptType.value.name === 'Todos') {
+    console.log(profElsRegistred.value)
+    return profElsRegistred.value
+  }
+  return profElsRegistred.value.filter(option => option.baseTypeName === filterOptType.value.name)
+})
+
+const elementsV = async () => {
+  const arr = []
+  for (const form of formVinculo.value) {
+    arr.push(form.id)
+    const res = await api.put(`/competences/${arr}`)
+    console.log(res)
+  }
+}
 </script>
 
 <style scoped>
@@ -271,5 +328,9 @@ q-separator {
   display: flex;
   margin-top: 30px;
   font-weight: bold;
+}
+
+.q-cardInputModalInpt {
+  width: 50%;
 }
 </style>

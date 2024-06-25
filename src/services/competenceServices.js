@@ -2,8 +2,7 @@ import { api } from 'boot/axios'
 
 const getAllCompetence = async () => {
   const { data } = await api.get('/competences')
-  const { competences } = data
-  return competences
+  return data
 }
 
 const postCompetence = async (competence) => {

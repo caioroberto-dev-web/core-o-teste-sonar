@@ -7,7 +7,8 @@ const routes = [
       { path: '', name: 'Home', component: () => import('pages/HomePage.vue') },
       { path: '/competencias', name: 'competenciasForm', component: () => import('pages/CompetenciasForm.vue') },
       { path: '/perfil', name: 'perfilDetalhes', component: () => import('pages/PerfilDetalhes.vue') },
-      { path: '/aptidoes', name: 'elementosForm', component: () => import('pages/ElementosForm.vue') }
+      { path: '/aptidoes', name: 'elementosForm', component: () => import('pages/ElementosForm.vue') },
+      { path: '/perfilProfissional/:id', name: 'perfilProfissional', component: () => import('pages/PagePerfilProfissional.vue') }
     ]
   },
   {

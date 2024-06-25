@@ -8,9 +8,19 @@ import axios from 'axios'
 // "export default () => {}" function below (which runs individually
 // for each client)
 // const api = axios.create({ baseURL: 'https://661c1c06e7b95ad7fa69b6e1.mockapi.io/' })
-const api = axios.create({ baseURL: 'http://3.80.227.196:8080/api/' })
+// const api = axios.create({ baseURL: 'http://3.90.226.76:8080/api/' })
 
-// Intercptor
+// Crie uma variável para o IP e o caminho da API
+const backendIp = '107.23.101.16'
+const apiPath = '/api/'
+
+// Construa a URL completa com base nas variáveis acima
+export const baseUrl = `http://${backendIp}:8080${apiPath}`
+
+// Crie a instância do axios com a URL completa
+const api = axios.create({ baseURL: baseUrl })
+
+// Interceptor
 api.interceptors.request.use(function (config) {
   const token = sessionStorage.getItem('token')
   config.headers.Authorization = `Bearer ${token}`
